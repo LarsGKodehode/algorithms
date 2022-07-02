@@ -2,10 +2,11 @@
   let targetNode;
   let virtualNode;
 
+  // Holds structure of element to append to DOM
   const componentStructure = () => {
     const structureRaw = `
     <div>
-
+      
     </div>
     `;
     return new DOMParser().parseFromString(structureRaw).body.firstChild;
@@ -40,22 +41,22 @@
   /**
    * Runs Collatz Conjecture on number and then updates virtual Construct
    * @param {number} integer - Number to run Collatz Conjecture on
-   * @param {boolean} logSteps - print eaece iteration to console
+   * @param {boolean} logSteps - Print eaece iteration to console
    * @returns - Object: {seed, steps, max}
    */
   function number(integer, logSteps = false) {
     console.log(`Starting with:\t${integer}`);
     // Convert negative numbers to positve, Collatz Conjecture is symetric
     if(integer < 0) {integer * -1};
-    // special case for input = 0
+    // Special case for input = 0
     if(integer === 0) {updata({"seed:": 0, "steps": 0, "max": 0})};
 
-    // variables to keep through iterations
+    // Variables to keep through iterations
     let iterations = 0;
     let topNumber = 0;
     let currentNumber = integer;
 
-    // main algorithm
+    // Main algorithm
     while(currentNumber !== 1) {
 
       // Meat of Collatz
@@ -64,17 +65,17 @@
         currentNumber = (currentNumber * 3) + 1;
       };
 
-      // replace highest number if larger
+      // Replace highest number if larger
       if(currentNumber > topNumber) {topNumber = currentNumber};
 
-      // increment iterations
+      // Increment iterations
       iterations++;
 
-      // log each stepgit
+      // Log each stepgit
       if(logSteps) {console.log(currentNumber)};
     };
 
-    // add to "Display"
+    // Add to "Display"
     update({"seed": integer, "steps": iterations, "max": topNumber});
   };
 

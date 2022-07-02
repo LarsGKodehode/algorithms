@@ -1,9 +1,9 @@
 import { collatz as Collatz } from "./collatz/collatz.js";
 
-// create new instance
+// Create new instance
 const collatz = Collatz;
 
-// place in DOM
+// Place in DOM
 const targetNode = document.getElementById("target-publish");
 collatz.setTarget(targetNode);
 

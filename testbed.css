@@ -9,7 +9,7 @@ body {
 }
 
 body > * {
-  /* placement in grid */
+  /* Placement in grid */
   grid-column: 2 / 3;
   grid-row: 2 / 3;
 
