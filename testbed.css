@@ -1,0 +1,17 @@
+html, body {
+  margin: 0;
+}
+
+body {
+  display: grid;
+  grid-template-columns: 1fr 9fr 1fr;
+  grid-template-rows: 1fr 9fr 1fr;
+}
+
+body > * {
+  /* placement in grid */
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+
+  border: solid 4px red;
+}
