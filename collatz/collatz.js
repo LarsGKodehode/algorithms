@@ -6,7 +6,7 @@
   const componentStructure = () => {
     const structureRaw = `
     <div>
-      
+      <p>Number:<span></span>Max:<span></span>Steps:<span></span></p>
     </div>
     `;
     return new DOMParser().parseFromString(structureRaw).body.firstChild;
@@ -33,7 +33,7 @@
    * Updates component with new info
    */
   function update() {
-    const newNode = componentStructure.copy(); // This is not how to copy nodes
+    const newNode = componentStructure.copy(); // FIXME: This is not how copy nodes works
 
     return newVirtualNode;
   };
