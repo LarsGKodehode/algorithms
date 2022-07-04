@@ -7,11 +7,13 @@ const collatz = Collatz;
 const targetNode = document.getElementById("target-publish");
 collatz.setTarget(targetNode);
 
+const debugOptions = {
+  "logSteps": false,
+};
 
-
-collatz.number(3, true);
-collatz.number(7, true);
-collatz.number(27, true);
-collatz.number(25, true);
+collatz.number(3, debugOptions);
+collatz.number(7, debugOptions);
+collatz.number(27, debugOptions);
+collatz.number(25, debugOptions);
 
 

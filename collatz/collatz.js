@@ -30,12 +30,21 @@
   };
 
   /**
-   * Updates component with new info
+   * Updates virtual component with new info
    */
   function update() {
-    const newNode = componentStructure.copy(); // FIXME: This is not how copy nodes works
+    // copy main component
 
-    return newVirtualNode;
+    // modify main component
+
+    // return newVirtualNode;
+  };
+
+  /**
+   * Draws new info to component
+   */
+  function draw() {
+
   };
 
   /**
@@ -44,8 +53,8 @@
    * @param {boolean} logSteps - Print eaece iteration to console
    * @returns - Object: {seed, steps, max}
    */
-  function number(integer, logSteps = false) {
-    console.log(`Starting with:\t${integer}`);
+  function number(integer, options) {
+    if(options.logInput) {console.log(`Starting with:\t${integer}`)};
     // Convert negative numbers to positve, Collatz Conjecture is symetric
     if(integer < 0) {integer * -1};
     // Special case for input = 0
@@ -71,8 +80,8 @@
       // Increment iterations
       iterations++;
 
-      // Log each stepgit
-      if(logSteps) {console.log(currentNumber)};
+      // DEBUG
+      if(options.logSteps) {console.log(currentNumber)};
     };
 
     // Add to "Display"
