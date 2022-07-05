@@ -1,4 +1,4 @@
- const Collatz = () => {
+ const collatz = () => {
 
   // ====== Methods Public ======
 
@@ -50,4 +50,4 @@
   };
 };
 
-export const collatz = Collatz();
+export const Collatz = collatz();
