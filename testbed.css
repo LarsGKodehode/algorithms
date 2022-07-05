@@ -1,0 +1,50 @@
+/*
+* CONTENT:
+* - GENERAL STYLING
+* - ELEMENTS
+*/
+
+
+/* ===== GENERAL STYLING ===== */
+html, body {
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+}
+
+body {
+  /* content display */
+  display: grid;
+  grid-template-columns: 1fr 9fr 1fr;
+  grid-template-rows: 1fr 9fr 1fr;
+}
+
+/* ===== ELEMENTS ===== */
+/* input */
+#input-wrapper {
+  /* alignment in grid */
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+
+  /* content display */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#input-wrapper > * {
+  text-align: center;
+}
+
+/* output */
+#output-field {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+}
+
+
+/* DEV STUFF DELETE */
+* {
+  border: solid 1px red;
+}
