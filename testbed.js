@@ -3,17 +3,15 @@ import { collatz as Collatz } from "./collatz/collatz.js";
 // Create new instance
 const collatz = Collatz;
 
-// Place in DOM
-const targetNode = document.getElementById("target-publish");
-collatz.setTarget(targetNode);
+// stores collected data
+let collatzArray = [];
 
-const debugOptions = {
-  "logSteps": false,
+collatzArray.push(collatz.CollatzThis(3));
+collatzArray.push(collatz.CollatzThis(7));
+collatzArray.push(collatz.CollatzThis(25));
+collatzArray.push(collatz.CollatzThis(27, {"DEBUG_LOG": true}));
+
+
+for(const entry of collatzArray) {
+  console.log(entry);
 };
-
-collatz.number(3, debugOptions);
-collatz.number(7, debugOptions);
-collatz.number(27, debugOptions);
-collatz.number(25, debugOptions);
-
-

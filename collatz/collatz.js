@@ -1,59 +1,14 @@
  const Collatz = () => {
-  let targetNode;
-  let virtualNode;
-
-  // Holds structure of element to append to DOM
-  const componentStructure = () => {
-    const structureRaw = `
-    <div>
-      <p>Number:<span></span>Max:<span></span>Steps:<span></span></p>
-    </div>
-    `;
-    return new DOMParser().parseFromString(structureRaw).body.firstChild;
-  };
 
   // ====== Methods Public ======
 
   /**
-   * Set where in the doccument to attach "Display"
-   * @param {DOMNode} documentTarget
-   */
-  const setTarget = (documentTarget) => {
-    targetNode = documentTarget;
-  };
-  
-/**
- * Attaches component to DOM
- */
-  function attachComponent() {
-    targetNode.appendChild(virtualNode);
-  };
-
-  /**
-   * Updates virtual component with new info
-   */
-  function update() {
-    // copy main component
-
-    // modify main component
-
-    // return newVirtualNode;
-  };
-
-  /**
-   * Draws new info to component
-   */
-  function draw() {
-
-  };
-
-  /**
-   * Runs Collatz Conjecture on number and then updates virtual Construct
+   * Runs Collatz Conjecture on number
    * @param {number} integer - Number to run Collatz Conjecture on
-   * @param {boolean} logSteps - Print eaece iteration to console
+   * @param {boolean} - options object
    * @returns - Object: {seed, steps, max}
    */
-  function number(integer, options) {
+  function CollatzThis(integer, options = false) {
     if(options.logInput) {console.log(`Starting with:\t${integer}`)};
     // Convert negative numbers to positve, Collatz Conjecture is symetric
     if(integer < 0) {integer * -1};
@@ -81,24 +36,17 @@
       iterations++;
 
       // DEBUG
-      if(options.logSteps) {console.log(currentNumber)};
+      if(options.DEBUG_LOG) {console.log(currentNumber)};
     };
 
     // Add to "Display"
-    update({"seed": integer, "steps": iterations, "max": topNumber});
+    return {"seed": integer, "steps": iterations, "max": topNumber};
   };
-
-
-  // ===== Methods Private ======
-  
 
 
 
   return {
-    setTarget,
-    attachComponent,
-    draw,
-    number
+    CollatzThis
   };
 };
 
