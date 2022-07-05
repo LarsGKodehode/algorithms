@@ -6,14 +6,17 @@
    * Runs Collatz Conjecture on number
    * @param {number} integer - Number to run Collatz Conjecture on
    * @param {boolean} - options object
-   * @returns - Object: {seed, steps, max}
+   * @return - {Object} {seed: {number}, steps: {number}, max: {number}}
    */
   async function CollatzThis(integer, options = false) {
     if(options.logInput) {console.log(`Starting with:\t${integer}`)};
-    // Convert negative numbers to positve, Collatz Conjecture is symetric
-    if(integer < 0) {integer * -1};
+    // Convert negative numbers to positve, Collatz Conjecture is not symetric around 0, and we don't want to deal with it
+    if(integer < 0) {
+      console.warn(`Only positive numbers allowed`);
+      return;
+    };
     // Special case for input = 0
-    if(integer === 0) {updata({"seed:": 0, "steps": 0, "max": 0})};
+    if(integer === 0) {return ({"seed:": 0, "steps": 0, "max": 0})};
 
     // Variables to keep through iterations
     let iterations = 0;

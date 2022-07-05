@@ -17,10 +17,8 @@ const outputTarget = document.getElementById("output-field"); // get document di
 Publisher.define(definePublishingFormat());
 
 
-// Event listners
+// Add event listners
 buttonSubmit.addEventListener("click", () => handleInput());
-
-
 
 
 
@@ -29,9 +27,9 @@ buttonSubmit.addEventListener("click", () => handleInput());
 /**
  * Handles input gathering, dispatching and clearing
  */
-function handleInput() {
-  // grab input
-  const newData = inputField.ariaValueMax;
+async function handleInput() {
+  // grab input and parse to number. Why do ES have to use integer and float interchangeably?
+  const newData = Number(inputField.value);
 
   // check if valid input
   if(!inputValid(newData)) {return};
@@ -39,18 +37,19 @@ function handleInput() {
   // clear input field
   inputField.value = "";
 
-  // do work on input here
-  const newCollatzNumber = Collatz.CollatzThis(newData);
+  // run algorithm here
+  const newCollatzNumber = await Collatz.CollatzThis(newData);
 
   // publish work
   Publisher.appendNumber(newCollatzNumber);
 };
 
 /**
- * Helper function to define structure of publishing format
- * hides away all the ugly stuff
+ * Helper function to define structure of publishing format.
+ * Hides away all the ugly stuff
  */
 function definePublishingFormat() {
+  // main element definition
   const nodeDefinition = `
     <div class="output-wrapper">
       <p class="seed">Start Number:</p>
@@ -74,4 +73,9 @@ function definePublishingFormat() {
     "DOMNode": newNode,
     "handles": handles,
   };
+};
+
+function inputValid(newData) {
+  if(typeof(newData) !== "number" || isNaN(newData)) {return false};
+  return true;
 };
