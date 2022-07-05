@@ -8,7 +8,7 @@
    * @param {boolean} - options object
    * @returns - Object: {seed, steps, max}
    */
-  function CollatzThis(integer, options = false) {
+  async function CollatzThis(integer, options = false) {
     if(options.logInput) {console.log(`Starting with:\t${integer}`)};
     // Convert negative numbers to positve, Collatz Conjecture is symetric
     if(integer < 0) {integer * -1};
@@ -23,7 +23,7 @@
     // Main algorithm
     while(currentNumber !== 1) {
 
-      // Meat of Collatz
+      // Check which of Collatz path to take
       if(currentNumber % 2 === 0) {currentNumber = currentNumber / 2;
       } else {
         currentNumber = (currentNumber * 3) + 1;
@@ -51,16 +51,3 @@
 };
 
 export const collatz = Collatz();
-
-/**
- * TASK:
- * 
- * Algorithm:
- * Dersom tallet er partall, del tallet på 2.
- * Dersom tallet er oddetall, gang tallet med 3 og pluss på 1.
- * Repeter prosessen over på det resulterende tallet.
- * 
- * output
- * “Antall steg før tallet endte på 1: (ANTALL STEG)”
- * “Høyeste tall nådd i sekvensen: (HØYESTE TALL)”
- */
