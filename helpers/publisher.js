@@ -30,9 +30,7 @@ const publisher = (options = false) => {
 
     // clone edited node
     const newNode = nodeMother.cloneNode("deep");
-
-    console.log(newNode);
-
+    
     // insert into DOM
     DOMTarget.appendChild(newNode);
   };
