@@ -1,7 +1,7 @@
 // collatz algorithm
-import { Collatz } from "./collatz/collatz.js";
+import { Collatz } from "./algorithms/collatz/collatz.js";
 // helper to publish formatetd content to DOM
-import { Publisher } from "./publisher.js";
+import { Publisher } from "./helpers/publisher.js";
 
 
 
@@ -52,9 +52,9 @@ function definePublishingFormat() {
   // main element definition
   const nodeDefinition = `
     <div class="output-wrapper">
-      <p class="seed">Start Number:</p>
-      <p class="steps">Steps:</p>
-      <p class="max">HighScore:</p>
+      <p class="output">Start Number: <span class="seed"></span</p>
+      <p class="output">Steps: <span class="steps"></span</p>
+      <p class="output">HighScore: <span class="max"></span</p>
     </div>
     `;
   
