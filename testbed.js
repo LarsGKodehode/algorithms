@@ -2,6 +2,8 @@
 import { Collatz } from "./algorithms/collatz/collatz.js";
 // Helper to publish formatetd content to DOM
 import { Publisher } from "./helpers/publisher.js";
+// Toggle switch
+import { Toggle } from "./helpers/switch.js";
 
 
 
@@ -12,20 +14,20 @@ const inputField = document.getElementById("input-field"); // Get document input
 const buttonSubmit = document.getElementById("input-field-submit"); // Get submit button
 const outputTarget = document.getElementById("output-container"); // Get document display target
 
+outputTarget.appendChild(Toggle.JonKantner());
 
 // Define publishing format
 Publisher.define(definePublishingFormat());
 
+outputTarget.classList
 
 // Add event listners
 buttonSubmit.addEventListener("click", () => handleInput());
 
 // DEBUG OPTIONS
 const DEBUG_OPTIONS = {
-  "DEBUG_LOG": true,
+  "DEBUG_LOG": false,
 };
-
-
 
 // ========== FUNCTIONS ==========
 
