@@ -10,7 +10,7 @@ import { Publisher } from "./helpers/publisher.js";
 /** Acquire DOM elements to target */
 const inputField = document.getElementById("input-field"); // get document input field
 const buttonSubmit = document.getElementById("input-field-submit"); // get submit button
-const outputTarget = document.getElementById("output-field"); // get document display target
+const outputTarget = document.getElementById("output-container"); // get document display target
 
 
 // define publishing format
@@ -51,11 +51,11 @@ async function handleInput() {
 function definePublishingFormat() {
   // main element definition
   const nodeDefinition = `
-    <div class="output-wrapper">
-      <p class="output">Start Number: <span class="seed"></span</p>
+    <li class="output-element glass">
+      <p class="output">Start: <span class="seed"></span</p>
       <p class="output">Steps: <span class="steps"></span</p>
       <p class="output">HighScore: <span class="max"></span</p>
-    </div>
+    </li>
     `;
   
   // parse to DOM Node
@@ -75,7 +75,18 @@ function definePublishingFormat() {
   };
 };
 
+/**
+ * Only accepts numbers >0
+ */
 function inputValid(newData) {
-  if(typeof(newData) !== "number" || isNaN(newData)) {return false};
+  // input is pure number
+  if(typeof(newData) !== "number" || isNaN(newData)) {
+    inputField.value = "";
+    return false;
+  };
+
+  // input is positive and non zero
+  if(newData <= 0) {return};
+
   return true;
 };

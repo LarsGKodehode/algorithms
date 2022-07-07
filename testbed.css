@@ -1,8 +1,19 @@
 /*
 * CONTENT:
+* - TYPOGRAPHY
 * - GENERAL STYLING
-* - ELEMENTS
+* - INPUT
+* - OUTPUT
+* - EFFECTS
 */
+
+
+/* ===== TYPOGRAPHY ===== */
+@import url('https://fonts.googleapis.com/css2?family=Encode+Sans&family=Quantico&display=swap');
+
+* {
+  font-family: 'Encode Sans', sans-serif;
+}
 
 
 /* ===== GENERAL STYLING ===== */
@@ -18,31 +29,129 @@ body {
   display: grid;
   grid-template-columns: 1fr 9fr 1fr;
   grid-template-rows: 1fr 9fr 1fr;
+  min-width: 0;
+
+  /* background */
+  background: #093028;  /* fallback for old browsers */
+  background-image: url("/image-background.jpg");
+  /* placement */
+  background-attachment: fixed;
 }
 
-/* ===== ELEMENTS ===== */
-/* input */
-#input-wrapper {
+/* ===== INPUT ===== */
+/* input wrapper */
+#input-container {
   /* alignment in grid */
   grid-column: 2 / 3;
   grid-row: 1 / 2;
 
   /* content display */
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  /* form */
+  margin: 2em;
 }
 
-#input-wrapper > * {
+#input-container > input {
+  /* form */
+  padding: .5em 1em;
+  border-radius: 50px;
+  margin: .5em;
+
+}
+
+/* input box */
+#input-field {
+  background-color: #AFCCCC;
+  color: #272F2F;
+
+  /* contentent */
   text-align: center;
 }
-
-/* output */
-#output-field {
-  grid-column: 2 / 3;
-  grid-row: 2 / 3;
+#input-field:hover {
+  outline: 4px ridge rgba(167, 152, 174, 0.6);
+  border-radius: 2rem;
+}
+#input-field:focus {
+  outline: 4px ridge rgba(167, 152, 174, 0.6);
+  border-radius: 2rem;
 }
 
+/* input button */
+#input-field-submit {
+  /* coloration */
+  background-color: #2CFF5B;
+  color: #00070C;
+
+  /* animation */
+  transition: transform 50ms ease-in;
+}
+@media (any-hover) {
+  #input-field-submit:hover {
+    outline: 4px ridge rgba(167, 152, 174, 0.6);
+    border-radius: 2rem;
+    
+  }
+}
+#input-field-submit:active {
+  outline: 4px ridge rgba(167, 152, 174, 0.6);
+  border-radius: 2rem;
+
+  transform: translateY(1px);
+}
+
+/* ===== OUTPUT ===== */
+/* output container */
+#output-container {
+  /* placement in grid */
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+
+  /* list stying */
+  list-style: none;
+  padding: 0;
+}
+
+/* list item */
+#output-container > .output-element {
+  /* organize internals */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  /* size */
+  box-sizing: border-box;
+  margin: 1em 0;
+  padding: 0 1em;
+
+  /* shape */
+  border-radius: 10px;
+}
+
+/* static parts */
+.output {
+  /* color: rgb(0, 0, 0); */
+}
+
+/* output results */
+span {
+  font-weight: 800;
+}
+
+
+/* ===== EFFECTS ===== */
+.glass { /* don't try figuring this out in here, use external tools */
+  background: #afcccc70;
+  /* backdrop filter is far to expensive to use except sparingly */
+  /* backdrop-filter: blur(35px); */
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 80px rgba(0, 0, 0, 0.25);
+  
+  filter: drop-shadow(4px 4px 4px black);
+}
 
 /* DEV STUFF DELETE */
 /*
