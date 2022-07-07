@@ -131,12 +131,7 @@ body {
   border-radius: 10px;
 }
 
-/* static parts */
-.output {
-  /* color: rgb(0, 0, 0); */
-}
-
-/* output results */
+/* results */
 span {
   font-weight: 800;
 }
@@ -152,10 +147,3 @@ span {
   
   filter: drop-shadow(4px 4px 4px black);
 }
-
-/* DEV STUFF DELETE */
-/*
-* {
-  border: solid 1px red;
-}
-*/
