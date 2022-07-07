@@ -4,30 +4,25 @@
 
   /**
    * Runs Collatz Conjecture on number
-   * @param {number} integer - Number to run Collatz Conjecture on
-   * @param {boolean} - Options object
+   * @param {number} number - Number to run Collatz Conjecture on
+   * @param {object} - Options object
    * @return - {Object} {seed: {number}, steps: {number}, max: {number}}
    */
-  async function CollatzThis(integer, options = false) {
-    if(options.logInput) {console.log(`Starting with:\t${integer}`)};
-    // Convert negative numbers to positve, Collatz Conjecture is not symetric around 0, and we don't want to deal with it
-    if(integer < 0) {
-      console.warn(`Only positive numbers allowed`);
-      return;
-    };
-    // Special case for input = 0
-    if(integer === 0) {return ({"seed:": 0, "steps": 0, "max": 0})};
+  async function CollatzThis(number, options = false) {
+    // DEBUG
+    if(options.DEBUG_LOG) {console.log(`Starting with:\t${number}`)};
 
     // Variables to keep through iterations
     let iterations = 0;
     let topNumber = 0;
-    let currentNumber = integer;
+    let currentNumber = number;
 
     // Main algorithm
     while(currentNumber !== 1) {
 
       // Check which of Collatz path to take
-      if(currentNumber % 2 === 0) {currentNumber = currentNumber / 2;
+      if(currentNumber % 2 === 0) {
+        currentNumber = currentNumber / 2;
       } else {
         currentNumber = (currentNumber * 3) + 1;
       };
@@ -43,13 +38,37 @@
     };
 
     // Add to "Display"
-    return {"seed": integer, "steps": iterations, "max": topNumber};
+    return {"seed": number, "steps": iterations, "max": topNumber};
+  };
+
+  /**
+   * Runs Collatz Conjecture on every number from: 1 through {number}
+   * @param {number} number - Number to run reach for
+   * @param {object} options - Options object
+   */
+  async function CollatzUpTo(number, options = false) {
+    // create simple array to iterate through
+    let tempArray = [];
+    for(let i = 1; i <= number; i++) {
+      tempArray.push(i);
+    };
+    
+    // update all values
+    const returnArray = await Promise.all(tempArray.map( async (element) => {
+      return await CollatzThis(element, options);
+    }));
+
+    // if option args, then sort/extract
+
+    // return
+    return returnArray
   };
 
 
 
   return {
-    CollatzThis
+    CollatzThis,
+    CollatzUpTo,
   };
 };
 

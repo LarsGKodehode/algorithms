@@ -20,6 +20,11 @@ Publisher.define(definePublishingFormat());
 // Add event listners
 buttonSubmit.addEventListener("click", () => handleInput());
 
+// DEBUG OPTIONS
+const DEBUG_OPTIONS = {
+  "DEBUG_LOG": true,
+};
+
 
 
 // ========== FUNCTIONS ==========
@@ -38,7 +43,7 @@ async function handleInput() {
   inputField.value = "";
 
   // Run algorithm here
-  const newCollatzNumber = await Collatz.CollatzThis(newData);
+  const newCollatzNumber = await Collatz.CollatzUpTo(newData, DEBUG_OPTIONS);
 
   // Publish work
   Publisher.appendNumber(newCollatzNumber);
