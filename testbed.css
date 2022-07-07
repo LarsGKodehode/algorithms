@@ -25,50 +25,50 @@ html, body {
 }
 
 body {
-  /* content display */
+  /* Content display */
   display: grid;
   grid-template-columns: 1fr 9fr 1fr;
   grid-template-rows: 1fr 9fr 1fr;
   min-width: 0;
 
-  /* background */
-  background: #093028;  /* fallback for old browsers */
+  /* Background */
+  background: #093028;
   background-image: url("/image-background.jpg");
-  /* placement */
+  /* Placement */
   background-attachment: fixed;
 }
 
 /* ===== INPUT ===== */
-/* input wrapper */
+/* Input wrapper */
 #input-container {
-  /* alignment in grid */
+  /* Alignment in grid */
   grid-column: 2 / 3;
   grid-row: 1 / 2;
 
-  /* content display */
+  /* Content display */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  /* form */
+  /* Form */
   margin: 2em;
 }
 
 #input-container > input {
-  /* form */
+  /* Form */
   padding: .5em 1em;
   border-radius: 50px;
   margin: .5em;
 
 }
 
-/* input box */
+/* Input box */
 #input-field {
   background-color: #AFCCCC;
   color: #272F2F;
 
-  /* contentent */
+  /* Contentent */
   text-align: center;
 }
 #input-field:hover {
@@ -80,13 +80,13 @@ body {
   border-radius: 2rem;
 }
 
-/* input button */
+/* Input button */
 #input-field-submit {
-  /* coloration */
+  /* Coloration */
   background-color: #2CFF5B;
   color: #00070C;
 
-  /* animation */
+  /* Animation */
   transition: transform 50ms ease-in;
 }
 @media (any-hover) {
@@ -104,44 +104,44 @@ body {
 }
 
 /* ===== OUTPUT ===== */
-/* output container */
+/* Output container */
 #output-container {
-  /* placement in grid */
+  /* Placement in grid */
   grid-column: 2 / 3;
   grid-row: 2 / 3;
 
-  /* list stying */
+  /* List stying */
   list-style: none;
   padding: 0;
 }
 
-/* list item */
+/* List item */
 #output-container > .output-element {
-  /* organize internals */
+  /* Organize internals */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 
-  /* size */
+  /* Size */
   box-sizing: border-box;
   margin: 1em 0;
   padding: 0 1em;
 
-  /* shape */
+  /* Shape */
   border-radius: 10px;
 }
 
-/* results */
+/* Results */
 span {
   font-weight: 800;
 }
 
 
 /* ===== EFFECTS ===== */
-.glass { /* don't try figuring this out in here, use external tools */
+.glass { /* Don't try figuring this out in here, use external tools */
   background: #afcccc70;
-  /* backdrop filter is far to expensive to use except sparingly */
-  /* backdrop-filter: blur(35px); */
+  /* Backdrop filter is far to expensive to use except sparingly */
+  /* Backdrop-filter: blur(35px); */
   border: 2px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 0 80px rgba(0, 0, 0, 0.25);
   

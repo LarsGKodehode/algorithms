@@ -5,7 +5,7 @@
   /**
    * Runs Collatz Conjecture on number
    * @param {number} integer - Number to run Collatz Conjecture on
-   * @param {boolean} - options object
+   * @param {boolean} - Options object
    * @return - {Object} {seed: {number}, steps: {number}, max: {number}}
    */
   async function CollatzThis(integer, options = false) {

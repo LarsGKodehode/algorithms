@@ -1,6 +1,6 @@
-// collatz algorithm
+// Collatz algorithm
 import { Collatz } from "./algorithms/collatz/collatz.js";
-// helper to publish formatetd content to DOM
+// Helper to publish formatetd content to DOM
 import { Publisher } from "./helpers/publisher.js";
 
 
@@ -8,12 +8,12 @@ import { Publisher } from "./helpers/publisher.js";
 // ========== EVENT FLOW ==========
 
 /** Acquire DOM elements to target */
-const inputField = document.getElementById("input-field"); // get document input field
-const buttonSubmit = document.getElementById("input-field-submit"); // get submit button
-const outputTarget = document.getElementById("output-container"); // get document display target
+const inputField = document.getElementById("input-field"); // Get document input field
+const buttonSubmit = document.getElementById("input-field-submit"); // Get submit button
+const outputTarget = document.getElementById("output-container"); // Get document display target
 
 
-// define publishing format
+// Define publishing format
 Publisher.define(definePublishingFormat());
 
 
@@ -28,19 +28,19 @@ buttonSubmit.addEventListener("click", () => handleInput());
  * Handles input gathering, dispatching and clearing
  */
 async function handleInput() {
-  // grab input and parse to number. Why do ES have to use integer and float interchangeably?
+  // Grab input and parse to number. Why do ES have to use integer and float interchangeably?
   const newData = Number(inputField.value);
 
-  // check if valid input
+  // Check if valid input
   if(!inputValid(newData)) {return};
 
-  // clear input field
+  // Clear input field
   inputField.value = "";
 
-  // run algorithm here
+  // Run algorithm here
   const newCollatzNumber = await Collatz.CollatzThis(newData);
 
-  // publish work
+  // Publish work
   Publisher.appendNumber(newCollatzNumber);
 };
 
@@ -49,7 +49,7 @@ async function handleInput() {
  * Hides away all the ugly stuff
  */
 function definePublishingFormat() {
-  // main element definition
+  // Main element definition
   const nodeDefinition = `
     <li class="output-element glass">
       <p class="output">Start: <span class="seed"></span</p>
@@ -58,10 +58,10 @@ function definePublishingFormat() {
     </li>
     `;
   
-  // parse to DOM Node
+  // Parse to DOM Node
   const newNode = new DOMParser().parseFromString(nodeDefinition, "text/html").body.firstChild;
 
-  // fetch new handlers
+  // Fetch new handlers
   const handles = {
     "seed": newNode.querySelector(".seed"),
     "steps": newNode.querySelector(".steps"),
@@ -85,7 +85,7 @@ function inputValid(newData) {
     return false;
   };
 
-  // input is positive and non zero
+  // Input is positive and non zero
   if(newData <= 0) {return};
 
   return true;
