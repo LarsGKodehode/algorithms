@@ -1,0 +1,152 @@
+/*
+* CONTENT:
+* - TYPOGRAPHY
+* - GENERAL STYLING
+* - INPUT
+* - OUTPUT
+* - EFFECTS
+*/
+
+
+/* ===== TYPOGRAPHY ===== */
+/* Consider moving import to html>head, could also serve this from the same server
+importing main font inside css adds an additional hop before first render */
+@import url('https://fonts.googleapis.com/css2?family=Encode+Sans&family=Quantico&display=swap');
+
+* {
+  font-family: 'Encode Sans', sans-serif;
+}
+
+
+/* ===== GENERAL STYLING ===== */
+html, body {
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+}
+
+body {
+  /* Content display */
+  display: grid;
+  grid-template-columns: 1fr 9fr 1fr;
+  grid-template-rows: 1fr 9fr 1fr;
+  min-width: 0;
+
+  /* Background */
+  background: #093028;
+  background-image: url("/image-background.jpg");
+  /* Placement */
+  background-attachment: fixed;
+}
+
+/* ===== INPUT ===== */
+/* Input wrapper */
+#input-container {
+  /* Alignment in grid */
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+
+  /* Content display */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  /* Form */
+  margin: 2em;
+}
+
+#input-container > input {
+  /* Form */
+  padding: .5em 1em;
+  border-radius: 50px;
+  margin: .5em;
+
+}
+
+/* Input box */
+#input-field {
+  background-color: #AFCCCC;
+  color: #272F2F;
+
+  /* Contentent */
+  text-align: center;
+}
+#input-field:hover {
+  outline: 4px ridge rgba(167, 152, 174, 0.6);
+  border-radius: 2rem;
+}
+#input-field:focus {
+  outline: 4px ridge rgba(167, 152, 174, 0.6);
+  border-radius: 2rem;
+}
+
+/* Input button */
+#input-field-submit {
+  /* Coloration */
+  background-color: #2CFF5B;
+  color: #00070C;
+
+  /* Animation */
+  transition: transform 50ms ease-in;
+}
+@media (any-hover) {
+  #input-field-submit:hover {
+    outline: 4px ridge rgba(167, 152, 174, 0.6);
+    border-radius: 2rem;
+  }
+}
+#input-field-submit:active {
+  outline: 4px ridge rgba(167, 152, 174, 0.6);
+  border-radius: 2rem;
+
+  transform: translateY(1px);
+}
+
+/* ===== OUTPUT ===== */
+/* Output container */
+#output-container {
+  /* Placement in grid */
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+
+  /* List stying */
+  list-style: none;
+  padding: 0;
+}
+
+/* List item */
+#output-container > .output-element {
+  /* Organize internals */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  /* Size */
+  box-sizing: border-box;
+  margin: 1em 0;
+  padding: 0 1em;
+
+  /* Shape */
+  border-radius: 10px;
+}
+
+/* Results */
+span {
+  font-weight: 800;
+}
+
+
+/* ===== EFFECTS ===== */
+
+/* Disclaimer not actually glassy */
+.glass {
+  background: #afcccc70;
+  /* Backdrop filter is far to expensive to use except sparingly */
+  /* Backdrop-filter: blur(35px); */
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 80px rgba(0, 0, 0, 0.25);
+  
+  filter: drop-shadow(4px 4px 4px black);
+}

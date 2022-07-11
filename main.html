@@ -5,20 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Module Algorithm</title>
 
-  <link rel="stylesheet" href="testbed.css">
+  <link rel="stylesheet" href="main.css">
+  
+  <script defer src="main.js" type="module"></script>
 
-  <script defer src="testbed.js" type="module"></script>
+  <link rel="icon" href="icon.svg ">
 </head>
 
-<body id="target-publish">
-  <!-- input -->
-  <form id="input-wrapper">
+<body>
+  <!-- Input -->
+  <form id="input-container">
     <input type="text" id="input-field" name="collatz number" inputmode="numeric" pattern[0-9] placeholder="0" autofocus autocomplete="off">
     <input type="submit" id="input-field-submit" value="SUBMIT" formmethod="dialog">
   </form>
 
-  <!-- display output here -->
-  <div id="output-field"></div>
+  <!-- Display output here -->
+  <ul id="output-container"></ul>
 
 </body>
 </html>
