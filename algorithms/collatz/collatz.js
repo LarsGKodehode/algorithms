@@ -47,20 +47,20 @@
    * @param {object} options - Options object
    */
   async function CollatzUpTo(number, options = false) {
-    // create simple array to iterate through
+    // Create simple array to iterate through
     let tempArray = [];
     for(let i = 1; i <= number; i++) {
       tempArray.push(i);
     };
     
-    // update all values
+    // Cpdate all values
     const returnArray = await Promise.all(tempArray.map( async (element) => {
       return await CollatzThis(element, options);
     }));
 
-    // if option args, then sort/extract
+    // Cf option args, then sort/extract
 
-    // return
+    // Return
     return returnArray
   };
 
