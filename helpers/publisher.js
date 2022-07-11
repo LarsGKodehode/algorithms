@@ -72,7 +72,7 @@ const publisher = (OPTIONS = false) => {
         return true;
       default:
         for(entry of faulty) {
-          console.warn(`This is wrong:`);
+          console.warn(`Missing keys in:`);
           console.dir(entry);
         };
         return false;
@@ -93,7 +93,7 @@ const publisher = (OPTIONS = false) => {
     for(const entry of handleNames) {
       handles[entry] = element.querySelector("." + entry);
     };
-    
+
     // return
     return handles;
   };
