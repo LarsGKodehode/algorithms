@@ -8,9 +8,9 @@
    * @param {object} - Options object
    * @return - {Object} {seed: {number}, steps: {number}, max: {number}}
    */
-  async function CollatzThis(number, options = false) {
+  async function CollatzThis(number, OPTIONS = false) {
     // DEBUG
-    if(options.DEBUG_LOG) {console.log(`Starting with:\t${number}`)};
+    if(OPTIONS.DEBUG_LOG) {console.log(`Starting with:\t${number}`)};
 
     // Variables to keep through iterations
     let iterations = 0;
@@ -34,7 +34,7 @@
       iterations++;
 
       // DEBUG
-      if(options.DEBUG_LOG) {console.log(currentNumber)};
+      if(OPTIONS.DEBUG_LOG) {console.log(currentNumber)};
     };
 
     // Add to "Display"
@@ -44,9 +44,9 @@
   /**
    * Runs Collatz Conjecture on every number from: 1 through {number}
    * @param {number} number - Number to run reach for
-   * @param {object} options - Options object
+   * @param {object} OPTIONS - Options object
    */
-  async function CollatzUpTo(number, options = false) {
+  async function CollatzUpTo(number, OPTIONS = false) {
     // Create simple array to iterate through
     let tempArray = [];
     for(let i = 1; i <= number; i++) {
@@ -55,7 +55,7 @@
     
     // Cpdate all values
     const returnArray = await Promise.all(tempArray.map( async (element) => {
-      return await CollatzThis(element, options);
+      return await CollatzThis(element, OPTIONS);
     }));
 
     // Cf option args, then sort/extract
