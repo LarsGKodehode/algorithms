@@ -8,7 +8,7 @@ import { Publisher } from "./helpers/publisher.js";
 // ========== CONFIGS ==========
 // DEBUG OPTIONS
 const DEBUG_OPTIONS = {
-  "DEBUG_LOG": true,
+  "DEBUG_LOG": false,
 };
 
 // OPTIONS
