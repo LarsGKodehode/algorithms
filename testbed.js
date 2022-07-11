@@ -5,9 +5,21 @@ import { Publisher } from "./helpers/publisher.js";
 
 
 
+// ========== CONFIGS ==========
+// DEBUG OPTIONS
+const DEBUG_OPTIONS = {
+  "DEBUG_LOG": false,
+};
+
+// OPTIONS
+const OPTIONS = {
+  ...DEBUG_OPTIONS,
+}
+
+
 // ========== EVENT FLOW ==========
 
-/** Acquire DOM elements to target */
+/** Acquire DOM element targets */
 const inputField = document.getElementById("input-field"); // Get document input field
 const buttonSubmit = document.getElementById("input-field-submit"); // Get submit button
 const outputTarget = document.getElementById("output-container"); // Get document display target
@@ -18,10 +30,7 @@ Publisher.define(definePublishingFormat());
 // Add event listners
 buttonSubmit.addEventListener("click", () => handleInput());
 
-// DEBUG OPTIONS
-const DEBUG_OPTIONS = {
-  "DEBUG_LOG": false,
-};
+
 
 
 
@@ -41,7 +50,7 @@ async function handleInput() {
   inputField.value = "";
 
   // Run algorithm here
-  const newCollatzNumber = await Collatz.CollatzThis(newData, DEBUG_OPTIONS);
+  const newCollatzNumber = await Collatz.CollatzThis(newData, OPTIONS);
 
   // Publish work
   Publisher.appendNumber(newCollatzNumber);
@@ -53,7 +62,7 @@ async function handleInput() {
  * Hides away all the ugly stuff
  */
 function definePublishingFormat() {
-  // Main element definition
+  // Output element definition
   const nodeDefinition = `
     <li class="output-element glass">
       <p class="output">Start: <span class="seed"></span</p>
@@ -73,7 +82,7 @@ function definePublishingFormat() {
   };
 
   return {
-    "target": outputTarget, // This looks for a global variable
+    "target": outputTarget, // This looks for a global variable, might want to change this
     "DOMNode": newNode,
     "handles": handles,
   };
@@ -84,9 +93,9 @@ function definePublishingFormat() {
  * Only accepts numbers > 0
  */
 function inputValid(newData) {
-  // input is pure number
+  // Input is acutally a number
   if(typeof(newData) !== "number" || isNaN(newData)) {
-    inputField.value = "";
+    inputField.value = ""; // Clear out corrupted input
     return false;
   };
 
