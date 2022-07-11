@@ -43,7 +43,7 @@
 
   /**
    * Runs Collatz Conjecture on every number from: 1 through {number}
-   * @param {number} number - Number to run reach for
+   * @param {number} number - Number to run Collatz up to
    * @param {object} OPTIONS - Options object
    */
   async function CollatzUpTo(number, OPTIONS = false) {
