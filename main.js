@@ -14,8 +14,12 @@ const DEBUG_OPTIONS = {
 // OPTIONS
 const OPTIONS = {
   ...DEBUG_OPTIONS,
-}
+  sort: "getLongestStoppingTime",
+};
 
+// available types of sorts
+// {getLongestStoppingTime} {getShortestStoppingTime}
+// {getHighScore} {getLowScore}(only returns number 1)
 
 // ========== EVENT FLOW ==========
 
@@ -51,10 +55,10 @@ buttonSubmit.addEventListener("click", () => handleInput());
 // ========== FUNCTIONS ==========
 
 /**
- * Handles input gathering, dispatching and clearing
+ * Handles input gathering, checking, calculating and publishing
  */
 async function handleInput() {
-  // Grab input and parse to number. Why do ES have to use integer and float interchangeably?
+  // Grab input and parse to number.
   const newData = Number(inputField.value);
 
   // Check if valid input
@@ -64,7 +68,7 @@ async function handleInput() {
   inputField.value = "";
 
   // Run algorithm here
-  const newCollatzNumber = await Collatz.CollatzThis(newData, OPTIONS);
+  const newCollatzNumber = await Collatz.CollatzUpTo(newData, OPTIONS);
 
   // Publish work
   Publisher.appendNumber(newCollatzNumber);
