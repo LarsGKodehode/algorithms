@@ -9,6 +9,8 @@
 
 
 /* ===== TYPOGRAPHY ===== */
+/* Consider moving import to html>head, could also serve this from the same server
+importing main font inside css adds an additional hop before first render */
 @import url('https://fonts.googleapis.com/css2?family=Encode+Sans&family=Quantico&display=swap');
 
 * {
@@ -93,7 +95,6 @@ body {
   #input-field-submit:hover {
     outline: 4px ridge rgba(167, 152, 174, 0.6);
     border-radius: 2rem;
-    
   }
 }
 #input-field-submit:active {
@@ -138,7 +139,9 @@ span {
 
 
 /* ===== EFFECTS ===== */
-.glass { /* Don't try figuring this out in here, use external tools */
+
+/* Disclaimer not actually glassy */
+.glass {
   background: #afcccc70;
   /* Backdrop filter is far to expensive to use except sparingly */
   /* Backdrop-filter: blur(35px); */
