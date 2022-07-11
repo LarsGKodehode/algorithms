@@ -10,7 +10,7 @@
    */
   async function CollatzThis(number, OPTIONS = false) {
     // DEBUG
-    if(OPTIONS.DEBUG_LOG) {console.log(`Starting with:\t${number}`)};
+    if(OPTIONS.DEBUG_LOG) {console.log(`Starting with:`);console.dir(number)};
 
     // Variables to keep through iterations
     let iterations = 0;
@@ -34,7 +34,7 @@
       iterations++;
 
       // DEBUG
-      if(OPTIONS.DEBUG_LOG) {console.log(currentNumber)};
+      if(OPTIONS.DEBUG_LOG) {console.dir(currentNumber)};
     };
 
     // Add to "Display"
