@@ -47,7 +47,7 @@
    * @param {object} OPTIONS - Options object
    */
   async function CollatzUpTo(number, OPTIONS = false) {
-    // Create simple array to iterate through
+    // Create simple array to iterate through, this could benefit from changing to use js generator function
     let tempArray = [];
     for(let i = 1; i <= number; i++) {
       tempArray.push(i);
