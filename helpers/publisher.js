@@ -1,4 +1,4 @@
-const publisher = (options = false) => {
+const publisher = (OPTIONS = false) => {
 
   // ===== PUBLIC METHODS =====
   /**
@@ -8,7 +8,8 @@ const publisher = (options = false) => {
   function define(createInfo) {
     // Checks if valid createInfo supplied
     if(!createInfoValid(createInfo)) {
-      console.warn(`CreateInfo is invalid:\t ${createInfo}`);
+      console.warn(`CreateInfo is invalid:`);
+      console.dir(createInfo);
       return;
     };
 
@@ -71,7 +72,8 @@ const publisher = (options = false) => {
         return true;
       default:
         for(entry of faulty) {
-          console.warn(`This is wrong:\t${entry}`);
+          console.warn(`This is wrong:`);
+          console.dir(entry);
         };
         return false;
     }
