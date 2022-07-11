@@ -2,8 +2,6 @@
 import { Collatz } from "./algorithms/collatz/collatz.js";
 // Helper to publish formatetd content to DOM
 import { Publisher } from "./helpers/publisher.js";
-// Toggle switch
-import { Toggle } from "./helpers/switch.js";
 
 
 
@@ -14,12 +12,8 @@ const inputField = document.getElementById("input-field"); // Get document input
 const buttonSubmit = document.getElementById("input-field-submit"); // Get submit button
 const outputTarget = document.getElementById("output-container"); // Get document display target
 
-outputTarget.appendChild(Toggle.JonKantner());
-
 // Define publishing format
 Publisher.define(definePublishingFormat());
-
-outputTarget.classList
 
 // Add event listners
 buttonSubmit.addEventListener("click", () => handleInput());
@@ -28,6 +22,8 @@ buttonSubmit.addEventListener("click", () => handleInput());
 const DEBUG_OPTIONS = {
   "DEBUG_LOG": false,
 };
+
+
 
 // ========== FUNCTIONS ==========
 
@@ -45,11 +41,12 @@ async function handleInput() {
   inputField.value = "";
 
   // Run algorithm here
-  const newCollatzNumber = await Collatz.CollatzUpTo(newData, DEBUG_OPTIONS);
+  const newCollatzNumber = await Collatz.CollatzThis(newData, DEBUG_OPTIONS);
 
   // Publish work
   Publisher.appendNumber(newCollatzNumber);
 };
+
 
 /**
  * Helper function to define structure of publishing format.
@@ -82,8 +79,9 @@ function definePublishingFormat() {
   };
 };
 
+
 /**
- * Only accepts numbers >0
+ * Only accepts numbers > 0
  */
 function inputValid(newData) {
   // input is pure number
@@ -93,7 +91,7 @@ function inputValid(newData) {
   };
 
   // Input is positive and non zero
-  if(newData <= 0) {return};
+  if(newData <= 0) {return false};
 
   return true;
 };
