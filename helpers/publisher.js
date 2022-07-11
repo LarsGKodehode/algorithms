@@ -2,7 +2,7 @@ const publisher = (OPTIONS = false) => {
 
   // ===== PUBLIC METHODS =====
   /**
-   * Recquired to setup the "gallery".
+   * Recquired to internally setup the "gallery".
    * @param {object} createInfo object
    */
   function define(createInfo) {
@@ -13,10 +13,10 @@ const publisher = (OPTIONS = false) => {
       return;
     };
 
-    // All good. set interanl variable
+    // All good. set internal variable
+    nodeMother = parseStringToNode(createInfo.definition);
+    motherlyHandles = attachHandles(nodeMother, createInfo.handles);
     DOMTarget = createInfo.target;
-    nodeMother = createInfo.DOMNode;
-    motherlyHandles = createInfo.handles;
   };
 
   /**
@@ -52,9 +52,9 @@ const publisher = (OPTIONS = false) => {
 
     // Keys that are recquired
     const correctkeys = [
-      "target",
-      "DOMNode",
+      "definition",
       "handles",
+      "target",
     ];
 
     // Check if all the keys are there, we don't care if we got more
@@ -77,6 +77,25 @@ const publisher = (OPTIONS = false) => {
         };
         return false;
     }
+  };
+
+  // Parses string to DOM Node
+  function parseStringToNode(string) {
+    const nodeParsed = new DOMParser().parseFromString(string, "text/html").body.firstChild;
+    return nodeParsed;
+  };
+
+  // Attaches handles to DOM elemente
+  function attachHandles(element, handleNames) {
+    // return object
+    let handles = {};
+    // run though handle names
+    for(const entry of handleNames) {
+      handles[entry] = element.querySelector("." + entry);
+    };
+    
+    // return
+    return handles;
   };
 
   // Object handles

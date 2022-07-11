@@ -25,7 +25,21 @@ const buttonSubmit = document.getElementById("input-field-submit"); // Get submi
 const outputTarget = document.getElementById("output-container"); // Get document display target
 
 // Define publishing format
-Publisher.define(definePublishingFormat());
+Publisher.define({
+  definition: `
+  <li class="output-element glass">
+    <p class="output">Start: <span class="seed"></span</p>
+    <p class="output">Steps: <span class="steps"></span</p>
+    <p class="output">HighScore: <span class="max"></span</p>
+  </li>
+  `,
+  handles: [
+    "seed",
+    "steps",
+    "max",
+  ],
+  target: outputTarget
+});
 
 // Add event listners
 buttonSubmit.addEventListener("click", () => handleInput());
@@ -54,38 +68,6 @@ async function handleInput() {
 
   // Publish work
   Publisher.appendNumber(newCollatzNumber);
-};
-
-
-/**
- * Helper function to define structure of publishing format.
- * Hides away all the ugly stuff
- */
-function definePublishingFormat() {
-  // Output element definition
-  const nodeDefinition = `
-    <li class="output-element glass">
-      <p class="output">Start: <span class="seed"></span</p>
-      <p class="output">Steps: <span class="steps"></span</p>
-      <p class="output">HighScore: <span class="max"></span</p>
-    </li>
-    `;
-  
-  // Parse to DOM Node
-  const newNode = new DOMParser().parseFromString(nodeDefinition, "text/html").body.firstChild;
-
-  // Fetch new handlers
-  const handles = {
-    "seed": newNode.querySelector(".seed"),
-    "steps": newNode.querySelector(".steps"),
-    "max": newNode.querySelector(".max"),
-  };
-
-  return {
-    "target": outputTarget, // This looks for a global variable, might want to change this
-    "DOMNode": newNode,
-    "handles": handles,
-  };
 };
 
 
