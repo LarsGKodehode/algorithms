@@ -53,12 +53,12 @@
       tempArray.push(i);
     };
     
-    // Cpdate all values
+    // Update all values
     const returnArray = await Promise.all(tempArray.map( async (element) => {
       return await CollatzThis(element, OPTIONS);
     }));
 
-    // Cf option args, then sort/extract
+    // If option args, then sort/extract
 
     // Return
     return returnArray
