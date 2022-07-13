@@ -1,9 +1,14 @@
 // Collatz algorithm
-import { Collatz } from "./algorithms/collatz/collatz.js";
+// import { Collatz } from "./algorithms/collatz/collatz.js"; // TEMP while working on threaded version
 
 // Helper to publish formated content to DOM
 import { Publisher } from "./helpers/publisher.js";
 
+// Figure out why declearing it inside a conditional throws a "not defined" error
+if(typeof(Worker) !== undefined) {
+  console.log(`threads supported`)
+};
+const worker = new Worker("./algorithms/collatz/collatz-worker.js");
 
 
 // ========== CONFIGS ==========
@@ -20,6 +25,8 @@ const OPTIONS = {
 // sort:
 // {getLongestStoppingTime} {getHighScore}
 // {getShortestStoppingTime} {getLowScore}(these only returns number 1)
+
+
 
 // ========== EVENT FLOW ==========
 
@@ -46,9 +53,7 @@ Publisher.define({
 });
 
 // Add event listners
-buttonSubmit.addEventListener("click", () => handleInput());
-
-
+buttonSubmit.addEventListener("click", () => handleInputThreaded());
 
 
 
@@ -71,6 +76,25 @@ async function handleInput() {
   Publisher.appendNumber(newCollatzNumber);
 };
 
+/**
+ * Threaded variant
+ */
+async function handleInputThreaded() {
+  // Grab input and parse to number.
+  const newNumber = Number(inputField.value);
+
+  // Check if valid input
+  if(!inputValid(newNumber)) {return};
+
+  // Run algorithm here
+  worker.postMessage({number: newNumber, OPTIONS: OPTIONS});
+
+  worker.onmessage = (message) => {
+    const numberStats = message.data;
+    // Publish work
+    Publisher.appendNumber(numberStats);
+  };
+};
 
 /**
  * Only accepts numbers > 0

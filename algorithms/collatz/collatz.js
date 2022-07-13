@@ -29,39 +29,6 @@
       "max": topNumber,
     };
   };
-  /** Swaps thisNumber to a threaded version if Web Workers available
-   * Hacking around no conditional imports and conditional function definition
-   */
-  if(typeof(Worker) !== undefined) {
-    // replace function with threaded version
-    thisNumber = async (number) => {
-      // Using promise for return value
-      return new Promise((resolve) => {
-        // create worker
-        /**
-         * Spinning up a thread for a single run through the algorithm is not very performant,
-         * it could be if the stopping time is really high
-         */
-        const newWorker = new Worker(`./algorithms/collatz/collatz-worker.js`);
-
-        // UI hint for worker working
-        console.log(`Worker thread calculating`);
-
-        // deliver data to work thread
-        newWorker.postMessage(number);
-
-        // return calculated values
-        newWorker.onmessage = (result) => {
-          // UI hint for work done
-          console.log(`Work finished`);
-          resolve(result.data);
-          // cleanup
-          newWorker.terminate();
-        };
-      });
-    };
-  };
-
 
   async function upTo(number, OPTIONS = false) {
     // Create simple array to iterate through, this might benefit from changing to a js generator expression
@@ -72,7 +39,7 @@
     
     // Run Collatz on values in array
     const returnArray = await Promise.all(tempArray.map( async (number) => {
-      return await thisNumber(number, OPTIONS);
+      return thisNumber(number, OPTIONS);
     }));
 
     // If OPTIONS args, then sort/extract
