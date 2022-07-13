@@ -1,10 +1,6 @@
 const publisher = (OPTIONS = false) => {
 
   // ===== PUBLIC METHODS =====
-  /**
-   * Recquired to internally setup the "gallery".
-   * @param {object} createInfo object
-   */
   function define(createInfo) {
     // Checks if valid createInfo supplied
     if(!createInfoValid(createInfo)) {
@@ -13,16 +9,13 @@ const publisher = (OPTIONS = false) => {
       return;
     };
 
-    // All good. set internal variable
+    // All good. Set internal variable
     nodeMother = parseStringToNode(createInfo.definition);
     motherlyHandles = attachHandles(nodeMother, createInfo.handles);
     DOMTarget = createInfo.target;
   };
 
-  /**
-   * Add another number to "gallery"
-   * @param {object} newNumber {seed: {number}, steps: {number}, max: {number}}
-   */
+
   function appendNumber(newNumber) {
     // Setup newNode
     motherlyHandles.seed.textContent = newNumber.seed;
@@ -36,14 +29,17 @@ const publisher = (OPTIONS = false) => {
     DOMTarget.appendChild(newNode);
   };
 
+
   async function clearOutput() {
     console.log(`NOT YET INPLEMENTED`);
   };
+
 
   // ===== PRIVATE MEMBERS =====
   let DOMTarget; // Holds place in DOM to add display
   let nodeMother; // Keeps the mother around
   let motherlyHandles; // Handles for mother node
+
 
   // ===== PRIVATE METHODS =====
   // Checks that all the pices is there, verbose when flawed
@@ -100,8 +96,19 @@ const publisher = (OPTIONS = false) => {
 
   // Object handles
   return {
+    /**
+     * Recquired to internally setup the "gallery".
+     * @param {object} createInfo object
+     */
     define,
+    /**
+     * Add another number to "gallery"
+     * @param {object} newNumber {seed: {number}, steps: {number}, max: {number}}
+     */
     appendNumber,
+    /**
+     * NOT YET IMPLEMENTED
+     */
     clearOutput,
   };
 };
