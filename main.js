@@ -1,6 +1,7 @@
 // Collatz algorithm
 import { Collatz } from "./algorithms/collatz/collatz.js";
-// Helper to publish formatetd content to DOM
+
+// Helper to publish formated content to DOM
 import { Publisher } from "./helpers/publisher.js";
 
 
@@ -8,18 +9,17 @@ import { Publisher } from "./helpers/publisher.js";
 // ========== CONFIGS ==========
 // DEBUG OPTIONS
 const DEBUG_OPTIONS = {
-  "DEBUG_LOG": false,
+  "DEBUG_LOG": true, // currently not logging anything
 };
 
 // OPTIONS
 const OPTIONS = {
   ...DEBUG_OPTIONS,
-  sort: "getLongestStoppingTime",
+  sort: "getHighScore",
 };
-
-// available types of sorts
-// {getLongestStoppingTime} {getShortestStoppingTime}
-// {getHighScore} {getLowScore}(only returns number 1)
+// sort:
+// {getLongestStoppingTime} {getHighScore}
+// {getShortestStoppingTime} {getLowScore}(these only returns number 1)
 
 // ========== EVENT FLOW ==========
 
@@ -64,11 +64,8 @@ async function handleInput() {
   // Check if valid input
   if(!inputValid(newData)) {return};
 
-  // Clear input field
-  inputField.value = "";
-
   // Run algorithm here
-  const newCollatzNumber = await Collatz.CollatzUpTo(newData, OPTIONS);
+  const newCollatzNumber = await Collatz.upTo(newData, OPTIONS);
 
   // Publish work
   Publisher.appendNumber(newCollatzNumber);
@@ -88,5 +85,6 @@ function inputValid(newData) {
   // Input is positive and non zero
   if(newData <= 0) {return false};
 
+  inputField.value = ""; // Clear out acceppted input
   return true;
 };

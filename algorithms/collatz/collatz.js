@@ -1,17 +1,6 @@
  const collatz = () => {
-
   // ====== Methods Public ======
-
-  /**
-   * Runs Collatz Conjecture on number
-   * @param {number} number - Number to run Collatz Conjecture on
-   * @param {object} - Options {highestStoppingTime} {lowestStoppingTime} {highScore} {lowScore}
-   * @return - {Object} {seed: {number}, steps: {number}, max: {number}}
-   */
-  async function CollatzThis(number, OPTIONS = false) {
-    // DEBUG
-    if(OPTIONS.DEBUG_LOG) {console.log(`Starting with:`);console.dir(number)};
-
+  async function thisNumber(number) {
     // Variables to keep through iterations
     let iterations = 0;
     let topNumber = number;
@@ -31,22 +20,50 @@
 
       // Increment iterations
       iterations++;
-
-      // DEBUG
-      if(OPTIONS.DEBUG_LOG) {console.dir(currentNumber)};
     };
 
     // Add to "Display"
-    return {"seed": number, "steps": iterations, "max": topNumber};
+    return {
+      "seed": number,
+      "steps": iterations,
+      "max": topNumber,
+    };
+  };
+  /** Swaps thisNumber to a threaded version if Web Workers available
+   * Hacking around no conditional imports and conditional function definition
+   */
+  if(typeof(Worker) !== undefined) {
+    // replace function with threaded version
+    thisNumber = async (number) => {
+      // Using promise for return value
+      return new Promise((resolve) => {
+        // create worker
+        /**
+         * Spinning up a thread for a single run through the algorithm is not very performant,
+         * it could be if the stopping time is really high
+         */
+        const newWorker = new Worker(`./algorithms/collatz/collatz-worker.js`);
+
+        // UI hint for worker working
+        console.log(`Worker thread calculating`);
+
+        // deliver data to work thread
+        newWorker.postMessage(number);
+
+        // return calculated values
+        newWorker.onmessage = (result) => {
+          // UI hint for work done
+          console.log(`Work finished`);
+          resolve(result.data);
+          // cleanup
+          newWorker.terminate();
+        };
+      });
+    };
   };
 
 
-  /**
-   * Runs Collatz Conjecture on every number from: 1 through {number}
-   * @param {number} number - Number to run Collatz up to
-   * @param {object} OPTIONS - Options object
-   */
-  async function CollatzUpTo(number, OPTIONS = false) {
+  async function upTo(number, OPTIONS = false) {
     // Create simple array to iterate through, this might benefit from changing to a js generator expression
     let tempArray = [];
     for(let i = 1; i <= number; i++) {
@@ -55,7 +72,7 @@
     
     // Run Collatz on values in array
     const returnArray = await Promise.all(tempArray.map( async (number) => {
-      return await CollatzThis(number, OPTIONS);
+      return await thisNumber(number, OPTIONS);
     }));
 
     // If OPTIONS args, then sort/extract
@@ -84,8 +101,19 @@
 
 
   return {
-    CollatzThis,
-    CollatzUpTo,
+  /**
+   * Runs Collatz Conjecture on number
+   * @param {number} number - Number to run Collatz Conjecture on
+   * @param {object} - Options {highestStoppingTime} {lowestStoppingTime} {highScore} {lowScore}
+   * @return - {Object} {seed: {number}, steps: {number}, max: {number}}
+   */
+    thisNumber,
+  /**
+   * Runs Collatz Conjecture on every number from: 1 up to and including {number}
+   * @param {number} number - Number to run Collatz up to
+   * @param {object} OPTIONS - Options object
+   */
+    upTo,
   };
 };
 
