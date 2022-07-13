@@ -1,25 +1,32 @@
 // Collatz algorithm
-import { Collatz } from "./algorithms/collatz/collatz.js";
-// Helper to publish formatetd content to DOM
+// import { Collatz } from "./algorithms/collatz/collatz.js"; // TEMP while working on threaded version
+
+// Helper to publish formated content to DOM
 import { Publisher } from "./helpers/publisher.js";
 
+// Figure out why declearing it inside a conditional throws a "not defined" error
+if(typeof(Worker) !== undefined) {
+  console.log(`threads supported`)
+};
+const worker = new Worker("./algorithms/collatz/collatz-worker.js");
 
 
 // ========== CONFIGS ==========
 // DEBUG OPTIONS
 const DEBUG_OPTIONS = {
-  "DEBUG_LOG": false,
+  "DEBUG_LOG": true, // currently not logging anything
 };
 
 // OPTIONS
 const OPTIONS = {
   ...DEBUG_OPTIONS,
-  sort: "getLongestStoppingTime",
+  sort: "getHighScore",
 };
+// sort:
+// {getLongestStoppingTime} {getHighScore}
+// {getShortestStoppingTime} {getLowScore}(these only returns number 1)
 
-// available types of sorts
-// {getLongestStoppingTime} {getShortestStoppingTime}
-// {getHighScore} {getLowScore}(only returns number 1)
+
 
 // ========== EVENT FLOW ==========
 
@@ -46,9 +53,7 @@ Publisher.define({
 });
 
 // Add event listners
-buttonSubmit.addEventListener("click", () => handleInput());
-
-
+buttonSubmit.addEventListener("click", () => handleInputThreaded());
 
 
 
@@ -64,16 +69,32 @@ async function handleInput() {
   // Check if valid input
   if(!inputValid(newData)) {return};
 
-  // Clear input field
-  inputField.value = "";
-
   // Run algorithm here
-  const newCollatzNumber = await Collatz.CollatzUpTo(newData, OPTIONS);
+  const newCollatzNumber = await Collatz.upTo(newData, OPTIONS);
 
   // Publish work
   Publisher.appendNumber(newCollatzNumber);
 };
 
+/**
+ * Threaded variant
+ */
+async function handleInputThreaded() {
+  // Grab input and parse to number.
+  const newNumber = Number(inputField.value);
+
+  // Check if valid input
+  if(!inputValid(newNumber)) {return};
+
+  // Run algorithm here
+  worker.postMessage({number: newNumber, OPTIONS: OPTIONS});
+
+  worker.onmessage = (message) => {
+    const numberStats = message.data;
+    // Publish work
+    Publisher.appendNumber(numberStats);
+  };
+};
 
 /**
  * Only accepts numbers > 0
@@ -88,5 +109,6 @@ function inputValid(newData) {
   // Input is positive and non zero
   if(newData <= 0) {return false};
 
+  inputField.value = ""; // Clear out acceppted input
   return true;
 };
