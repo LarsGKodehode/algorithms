@@ -111,7 +111,7 @@ const publisher = (OPTIONS = false) => {
     /**
      * NOT YET IMPLEMENTED
      */
-    clearOutput,
+    //clearOutput,
   };
 };
 
