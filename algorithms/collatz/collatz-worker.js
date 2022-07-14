@@ -80,9 +80,9 @@ const collatz = () => {
 
 const Collatz = collatz();
 
-// handles incomming messages
+// Handles incomming messages
 onmessage = async (message) => {
-  // deconstruct message
+  // Deconstruct message
   const { number, OPTIONS } = message.data;
   
   // Run algorithm

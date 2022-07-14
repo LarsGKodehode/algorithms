@@ -1,4 +1,4 @@
-// non threaded variant of algorithm
+// Non threaded variant of algorithm
 import { Collatz } from "./algorithms/collatz/collatz.js";
 // Helper to publish formated content to DOM
 import { Publisher } from "./helpers/publisher.js";
@@ -8,7 +8,7 @@ import { Publisher } from "./helpers/publisher.js";
 // ========== CONFIGS ==========
 // DEBUG OPTIONS
 const DEBUG_OPTIONS = {
-  "DEBUG_LOG": false, // currently not logging anything
+  "DEBUG_LOG": false, // Currently not logging anything
 };
 
 // OPTIONS
@@ -16,7 +16,7 @@ const OPTIONS = {
   ...DEBUG_OPTIONS,
   sort: "getHighScore",
 };
-// sort:
+// Sort:
 // {getLongestStoppingTime} {getHighScore}
 
 
@@ -75,9 +75,9 @@ async function handleInput() {
  * to change program path to use a "better" function when available
  */
 if(typeof(Worker) !== undefined) {
-  // initialize worker
+  // Initialize worker
   const worker = new Worker("./algorithms/collatz/collatz-worker.js");
-  // redefine function too use threads
+  // Redefine function too use threads
   handleInput = () => {
     // Grab input and parse to number.
     const newNumber = Number(inputField.value);

@@ -83,14 +83,14 @@ const publisher = (OPTIONS = false) => {
 
   // Attaches handles to DOM elemente
   function attachHandles(element, handleNames) {
-    // return object
+    // Return object
     let handles = {};
-    // run though handle names
+    // Run though handle names
     for(const entry of handleNames) {
       handles[entry] = element.querySelector("." + entry);
     };
 
-    // return
+    // Return
     return handles;
   };
 
