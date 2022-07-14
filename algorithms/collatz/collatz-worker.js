@@ -49,14 +49,8 @@ const collatz = () => {
         case "getLongestStoppingTime":
           returnArray.sort((a, b) => {return a.steps - b.steps});
           break
-        case "getShortestStoppingTime":
-          returnArray.sort((a, b) => {return b.steps - a.steps});
-          break;
         case "getHighScore":
           returnArray.sort((a, b) => {return a.max - b.max});
-          break;
-        case "getLowScore":
-          returnArray.sort((a, b) => {return b.max - a.max});
           break;
       };
     };
@@ -90,8 +84,6 @@ const Collatz = collatz();
 onmessage = async (message) => {
   // deconstruct message
   const { number, OPTIONS } = message.data;
-
-  console.log(`Calculating Collatz for all numbers upto:\t${number}`)
   
   // Run algorithm
   const newStats = await Collatz.upTo(number, OPTIONS);

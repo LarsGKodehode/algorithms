@@ -49,14 +49,8 @@
         case "getLongestStoppingTime":
           returnArray.sort((a, b) => {return a.steps - b.steps});
           break
-        case "getShortestStoppingTime":
-          returnArray.sort((a, b) => {return b.steps - a.steps});
-          break;
         case "getHighScore":
           returnArray.sort((a, b) => {return a.max - b.max});
-          break;
-        case "getLowScore":
-          returnArray.sort((a, b) => {return b.max - a.max});
           break;
       };
     };
