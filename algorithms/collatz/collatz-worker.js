@@ -42,7 +42,7 @@ const collatz = () => {
       return thisNumber(number, OPTIONS);
     }));
 
-    // If OPTIONS args, then sort/extract
+    // If OPTIONS.sort, then sort
     const sort = OPTIONS.sort;
     if(sort) {
       switch(sort) {
