@@ -1,20 +1,14 @@
-// Collatz algorithm
-// import { Collatz } from "./algorithms/collatz/collatz.js"; // TEMP while working on threaded version
-
+// non threaded variant of algorithm
+import { Collatz } from "./algorithms/collatz/collatz.js";
 // Helper to publish formated content to DOM
 import { Publisher } from "./helpers/publisher.js";
 
-// Figure out why declearing it inside a conditional throws a "not defined" error
-if(typeof(Worker) !== undefined) {
-  console.log(`threads supported`)
-};
-const worker = new Worker("./algorithms/collatz/collatz-worker.js");
 
 
 // ========== CONFIGS ==========
 // DEBUG OPTIONS
 const DEBUG_OPTIONS = {
-  "DEBUG_LOG": true, // currently not logging anything
+  "DEBUG_LOG": false, // currently not logging anything
 };
 
 // OPTIONS
@@ -24,7 +18,6 @@ const OPTIONS = {
 };
 // sort:
 // {getLongestStoppingTime} {getHighScore}
-// {getShortestStoppingTime} {getLowScore}(these only returns number 1)
 
 
 
@@ -53,7 +46,7 @@ Publisher.define({
 });
 
 // Add event listners
-buttonSubmit.addEventListener("click", () => handleInputThreaded());
+buttonSubmit.addEventListener("click", () => handleInput());
 
 
 
@@ -75,24 +68,32 @@ async function handleInput() {
   // Publish work
   Publisher.appendNumber(newCollatzNumber);
 };
-
+// If supported setup Web Worker, use threaded variant of function instead
 /**
- * Threaded variant
+ * this is a hack, redefines exsisting function
+ * using this because JS lacks conditional imports and I could not find a better way
+ * to change program path to use a "better" function when available
  */
-async function handleInputThreaded() {
-  // Grab input and parse to number.
-  const newNumber = Number(inputField.value);
-
-  // Check if valid input
-  if(!inputValid(newNumber)) {return};
-
-  // Run algorithm here
-  worker.postMessage({number: newNumber, OPTIONS: OPTIONS});
-
-  worker.onmessage = (message) => {
-    const numberStats = message.data;
-    // Publish work
-    Publisher.appendNumber(numberStats);
+if(typeof(Worker) !== undefined) {
+  // initialize worker
+  const worker = new Worker("./algorithms/collatz/collatz-worker.js");
+  // redefine function too use threads
+  handleInput = () => {
+    // Grab input and parse to number.
+    const newNumber = Number(inputField.value);
+  
+    // Check if valid input
+    if(!inputValid(newNumber)) {return};
+  
+    // Run algorithm here
+    worker.postMessage({number: newNumber, OPTIONS: OPTIONS});
+  
+    // Handle returned value
+    worker.onmessage = (message) => {
+      const numberStats = message.data;
+      // Publish work
+      Publisher.appendNumber(numberStats);
+    };
   };
 };
 
