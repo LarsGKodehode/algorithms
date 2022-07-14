@@ -16,11 +16,11 @@ const publisher = (OPTIONS = false) => {
   };
 
 
-  function appendNumber(newNumber) {
+    function appendNumber(newNumber) {
     // Setup newNode
-    motherlyHandles.seed.textContent = newNumber.seed;
-    motherlyHandles.steps.textContent = newNumber.steps;
-    motherlyHandles.max.textContent = newNumber.max;
+    motherlyHandles.seed.textContent = new Intl.NumberFormat(UserLanguage).format(newNumber.seed);
+    motherlyHandles.steps.textContent = new Intl.NumberFormat(UserLanguage).format(newNumber.steps);
+    motherlyHandles.max.textContent = new Intl.NumberFormat(UserLanguage).format(newNumber.max);
 
     // Clone edited node
     const newNode = nodeMother.cloneNode("deep");
@@ -40,6 +40,8 @@ const publisher = (OPTIONS = false) => {
   let nodeMother; // Keeps the mother around
   let motherlyHandles; // Handles for mother node
 
+  /** Acquire user prefered properties */
+  const UserLanguage = navigator.language;
 
   // ===== PRIVATE METHODS =====
   // Checks that all the pices is there, verbose when flawed

@@ -70,6 +70,7 @@ async function handleInput() {
   // Publish work
   Publisher.appendNumber(newCollatzNumber);
 };
+
 // If Web Worker supported, use threaded variant of function instead
 /**
  * this is a hack, redefines exsisting function
@@ -79,10 +80,12 @@ async function handleInput() {
 if(typeof(Worker) !== undefined) {
   // Initialize worker
   const worker = new Worker("./algorithms/collatz/collatz-worker.js");
+
   // Redefine function too use threads
   handleInput = () => {
     // Grab input and parse to number.
     const newNumber = Number(inputField.value);
+
     // We got input, reset field for next input
     inputField.value = "";
   
@@ -101,28 +104,38 @@ if(typeof(Worker) !== undefined) {
   };
 };
 
+
 /**
  * Only accepts numbers > 0
  */
 function inputValid(newData) {
   // Input is acutally a number
   if(typeof(newData) !== "number" || isNaN(newData)) {
-    UXinvalidForm(inputField);
+    cueInvalidForm(inputField);
     return false;
   };
   
   // Input is positive and non zero
   if(newData <= 0) {
-    UXinvalidForm(inputField);
+    cueInvalidForm(inputField);
     return false;
   };
 
   return true;
 };
 
+
 // UX feedback cue for invalid input, higlights offending box
-// this solution works poorly
-async function UXinvalidForm(node) {
+/** this solution works poorly
+ * problem#1 if active it turns it off
+ * problem#2 it does not provide cue on keypress "enter"
+ * Theory:
+ *  button click forces a browser page update
+ *  keypress does not
+ * rational:
+ *  class is set correctly, but no change in renderer
+ */
+async function cueInvalidForm(node) {
   if(node.classList.toggle("invalid-form")) {
     setTimeout(() => {node.classList.remove("invalid-form")}, 1000);
   };
