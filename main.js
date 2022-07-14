@@ -32,15 +32,34 @@ const outputTarget = document.getElementById("output-container"); // Get documen
 Publisher.define({
   definition: `
   <li class="output-element glass">
-    <p class="output">Start: <span class="seed"></span</p>
-    <p class="output">Steps: <span class="steps"></span</p>
-    <p class="output">HighScore: <span class="max"></span</p>
+    <h3>Numbers up to: <span class="end-number"></span></h3>
+    <div class="output-box title">
+      <span>Seed</span>
+      <span>Stopping Time</span>
+      <span>Highest Score</span>
+    </div>
+    <hr>
+    <div class="output-box longest-running">
+      <span class="lr-seed"></span>
+      <span class="lr-stopping-time"></span>
+      <span class="lr-highest-score"></span>
+    </div>
+    <hr>
+    <div class="output-box highest-score">
+      <span class="hs-seed"></span>
+      <span class="hs-stopping-time"></span>
+      <span class="hs-highest-score"></span>
+    </div>
   </li>
   `,
   handles: [
-    "seed",
-    "steps",
-    "max",
+    "end-number",
+    "lr-seed",
+    "lr-stopping-time",
+    "lr-highest-score",
+    "hs-seed",
+    "hs-stopping-time",
+    "hs-highest-score",
   ],
   target: outputTarget
 });
@@ -97,9 +116,8 @@ if(typeof(Worker) !== undefined) {
   
     // Handle returned value
     worker.onmessage = (message) => {
-      const numberStats = message.data;
       // Publish work
-      Publisher.appendNumber(numberStats);
+      Publisher.appendNumber(message.data);
     };
   };
 };
