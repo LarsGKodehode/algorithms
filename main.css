@@ -124,16 +124,32 @@ body {
 #output-container > .output-element {
   /* Organize internals */
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
 
   /* Size */
   box-sizing: border-box;
   margin: 1em 0;
-  padding: 0 1em;
+  padding: 1em 2em;
 
   /* Shape */
   border-radius: 10px;
+}
+
+#output-container > .output-element > h3 {
+  margin-bottom: 0;
+}
+
+#output-container > .output-element > hr {
+  width: 100%;
+  border: 2px solid rgba(0, 0, 0, 0.4);
+  border-radius: 2px;
+}
+
+.output-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 /* Results */

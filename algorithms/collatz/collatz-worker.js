@@ -32,31 +32,51 @@ const collatz = () => {
 
   async function upTo(number, OPTIONS = false) {
     // Create simple array to iterate through, this might benefit from changing to a JS generator expression
-    let tempArray = [];
+    let numbersToCheck = [];
     for(let i = 1; i <= number; i++) {
-      tempArray.push(i);
+      numbersToCheck.push(i);
     };
     
     // Run Collatz on values in array
-    const returnArray = await Promise.all(tempArray.map( async (number) => {
+    const tempArray = await Promise.all(numbersToCheck.map( async (number) => {
       return thisNumber(number, OPTIONS);
     }));
 
     // If OPTIONS.sort, then sort
-    const sort = OPTIONS.sort;
-    if(sort) {
-      switch(sort) {
-        case "getLongestStoppingTime":
-          returnArray.sort((a, b) => {return a.steps - b.steps});
-          break
-        case "getHighScore":
-          returnArray.sort((a, b) => {return a.max - b.max});
-          break;
+    // const sort = OPTIONS.sort;
+    // if(sort) {
+    //   switch(sort) {
+    //     case "getLongestStoppingTime":
+    //       tempArray.sort((a, b) => {return a.steps - b.steps});
+    //       break
+    //     case "getHighScore":
+    //       tempArray.sort((a, b) => {return a.max - b.max});
+    //       break;
+    //   };
+    // };
+
+    let longestRunning = {steps: 0};
+    let highestScore = {max: 0};
+    for(const entry of tempArray) {
+      if(entry.steps > longestRunning.steps) {
+        longestRunning = entry;
+      };
+      if(entry.max > highestScore.max) {
+        highestScore = entry;
       };
     };
 
+
     // Return
-    return returnArray.pop()
+    return {
+      "end-number": number,
+      "lr-seed": longestRunning.seed,
+      "lr-stopping-time": longestRunning.steps,
+      "lr-highest-score": longestRunning.max,
+      "hs-seed": highestScore.seed,
+      "hs-stopping-time": highestScore.steps,
+      "hs-highest-score": highestScore.max,
+    };
   };
 
 
