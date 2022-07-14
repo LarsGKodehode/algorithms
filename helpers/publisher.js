@@ -70,7 +70,7 @@ const publisher = (OPTIONS = false) => {
         return true;
       default:
         for(entry of faulty) {
-          console.warn(`Missing keys in:`);
+          console.warn(`Missing key in:`);
           console.dir(entry);
         };
         return false;
