@@ -17,14 +17,10 @@ const publisher = (OPTIONS = false) => {
 
 
   function appendNumber(newNumber) {
+    // set all variables in new element
     for(const entry in motherlyHandles) {
       motherlyHandles[entry].textContent = new Intl.NumberFormat(UserLanguage).format(newNumber[entry]);
     };
-
-    // Setup newNode
-    //motherlyHandles.seed.textContent = new Intl.NumberFormat(UserLanguage).format(newNumber.seed);
-    //motherlyHandles.steps.textContent = new Intl.NumberFormat(UserLanguage).format(newNumber.steps);
-    //motherlyHandles.max.textContent = new Intl.NumberFormat(UserLanguage).format(newNumber.max);
 
     // Clone edited node
     const newNode = nodeMother.cloneNode("deep");
