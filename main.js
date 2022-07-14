@@ -25,7 +25,7 @@ const OPTIONS = {
 
 /** Acquire DOM element targets */
 const inputField = document.getElementById("input-field"); // Get document input field
-const buttonSubmit = document.getElementById("input-field-submit"); // Get submit button
+const submit = document.getElementById("input-container"); // Get submit form
 const outputTarget = document.getElementById("output-container"); // Get document display target
 
 // Define publishing format
@@ -46,7 +46,7 @@ Publisher.define({
 });
 
 // Add event listners
-buttonSubmit.addEventListener("click", () => handleInput());
+submit.addEventListener("submit", () => handleInput());
 
 
 
@@ -58,6 +58,8 @@ buttonSubmit.addEventListener("click", () => handleInput());
 async function handleInput() {
   // Grab input and parse to number.
   const newData = Number(inputField.value);
+  // We got input, reset field for next input
+  inputField.value = "";
 
   // Check if valid input
   if(!inputValid(newData)) {return};
@@ -68,7 +70,7 @@ async function handleInput() {
   // Publish work
   Publisher.appendNumber(newCollatzNumber);
 };
-// If supported setup Web Worker, use threaded variant of function instead
+// If Web Worker supported, use threaded variant of function instead
 /**
  * this is a hack, redefines exsisting function
  * using this because JS lacks conditional imports and I could not find a better way
@@ -81,6 +83,8 @@ if(typeof(Worker) !== undefined) {
   handleInput = () => {
     // Grab input and parse to number.
     const newNumber = Number(inputField.value);
+    // We got input, reset field for next input
+    inputField.value = "";
   
     // Check if valid input
     if(!inputValid(newNumber)) {return};
@@ -103,13 +107,23 @@ if(typeof(Worker) !== undefined) {
 function inputValid(newData) {
   // Input is acutally a number
   if(typeof(newData) !== "number" || isNaN(newData)) {
-    inputField.value = ""; // Clear out corrupted input
+    UXinvalidForm(inputField);
+    return false;
+  };
+  
+  // Input is positive and non zero
+  if(newData <= 0) {
+    UXinvalidForm(inputField);
     return false;
   };
 
-  // Input is positive and non zero
-  if(newData <= 0) {return false};
-
-  inputField.value = ""; // Clear out acceppted input
   return true;
+};
+
+// UX feedback cue for invalid input, higlights offending box
+// this solution works poorly
+async function UXinvalidForm(node) {
+  if(node.classList.toggle("invalid-form")) {
+    setTimeout(() => {node.classList.remove("invalid-form")}, 1000);
+  };
 };
