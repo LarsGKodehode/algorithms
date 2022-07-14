@@ -31,7 +31,7 @@ const collatz = () => {
   };
 
   async function upTo(number, OPTIONS = false) {
-    // Create simple array to iterate through, this might benefit from changing to a js generator expression
+    // Create simple array to iterate through, this might benefit from changing to a JS generator expression
     let tempArray = [];
     for(let i = 1; i <= number; i++) {
       tempArray.push(i);
@@ -88,6 +88,6 @@ onmessage = async (message) => {
   // Run algorithm
   const newStats = await Collatz.upTo(number, OPTIONS);
 
-  // Return to main functio
+  // Return to main function
   postMessage(newStats);
 };
