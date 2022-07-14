@@ -1,1 +1,1 @@
-Collection of various fun, challenging or usfull algorithms
+Collection of various fun, challenging or usefull algorithms
