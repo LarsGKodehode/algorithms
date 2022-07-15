@@ -31,25 +31,21 @@ const outputTarget = document.getElementById("output-container"); // Get documen
 // Define publishing format
 Publisher.define({
   definition: `
-  <li class="output-element glass">
-    <h3>Numbers up to: <span class="end-number"></span></h3>
-    <div class="output-box title">
-      <span>Seed</span>
-      <span>Stopping Time</span>
-      <span>Highest Score</span>
-    </div>
-    <hr>
-    <div class="output-box longest-running">
-      <span class="lr-seed"></span>
-      <span class="lr-stopping-time"></span>
-      <span class="lr-highest-score"></span>
-    </div>
-    <hr>
-    <div class="output-box highest-score">
-      <span class="hs-seed"></span>
-      <span class="hs-stopping-time"></span>
-      <span class="hs-highest-score"></span>
-    </div>
+  <li class="output-element glass" style="display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);gap:10px">
+    <h3 style="grid-column:1/-1;grid-row:1/1">Numbers up to: <span class="end-number"></span></h3>
+    <span style="grid-column:2/3;grid-row:2/3">Seed</span>
+    <span style="grid-column:3/4;grid-row:2/3">Stopping Time</span>
+    <span style="grid-column:4/5;grid-row:2/3">Highest Score</span>
+
+    <span style="grid-column:1/2;grid-row:3/4">Longest Running: </span>
+    <span class="lr-seed" style="grid-column:2/3;grid-row:3/4"></span>
+    <span class="lr-stopping-time" style="grid-column:3/4;grid-row:3/4"></span>
+    <span class="lr-highest-score" style="grid-column:4/5;grid-row:3/4"></span>
+
+    <span style="grid-column:1/2;grid-row:4/5">Highest Score: </span>
+    <span class="hs-seed" style="grid-column:2/3;grid-row:4/5"></span>
+    <span class="hs-stopping-time" style="grid-column:3/4;grid-row:4/5"></span>
+    <span class="hs-highest-score" style="grid-column:4/5;grid-row:4/5"></span>
   </li>
   `,
   handles: [

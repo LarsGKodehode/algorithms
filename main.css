@@ -122,16 +122,11 @@ body {
 
 /* List item */
 #output-container > .output-element {
-  /* Organize internals */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
   /* Size */
   box-sizing: border-box;
   margin: 1em 0;
   padding: 1em 2em;
-
+  
   /* Shape */
   border-radius: 10px;
 }
@@ -144,12 +139,6 @@ body {
   width: 100%;
   border: 2px solid rgba(0, 0, 0, 0.4);
   border-radius: 2px;
-}
-
-.output-box {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 }
 
 /* Results */
