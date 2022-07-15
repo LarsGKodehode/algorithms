@@ -14,19 +14,20 @@ const DEBUG_OPTIONS = {
 // OPTIONS
 const OPTIONS = {
   ...DEBUG_OPTIONS,
-  sort: "getHighScore",
+  variant: "single",
 };
-// Sort:
-// {getLongestStoppingTime} {getHighScore}
+// variant:
+// {"single"} | {"upTo"}
 
 
 
 // ========== EVENT FLOW ==========
 
 /** Acquire DOM element targets */
-const inputField = document.getElementById("input-field"); // Get document input field
-const submit = document.getElementById("input-container"); // Get submit form
-const outputTarget = document.getElementById("output-container"); // Get document display target
+const outputTarget = document.getElementById("output-container"); // Output target
+const inputField = document.getElementById("input-field"); // Input field
+const submit = document.getElementById("input-container"); // Submit form
+const switchSingleAll = document.getElementById("switch-single-all"); // GUI switch Collatz 1 | Collatz 1-..-N
 
 // Define publishing format
 Publisher.define({
@@ -62,6 +63,7 @@ Publisher.define({
 
 // Add event listners
 submit.addEventListener("submit", () => handleInput());
+switchSingleAll.addEventListener("click", () => changeSingleAll());
 
 
 
@@ -118,6 +120,24 @@ if(typeof(Worker) !== undefined) {
   };
 };
 
+/**
+ * Switches between
+ * running on only input number
+ * running on all numbers upto input number
+ */
+function changeSingleAll() {
+  switch (OPTIONS.variant) {
+    case "single":
+      OPTIONS.variant = "upTo";
+      switchSingleAll.value = "upTo";
+      break;
+    case "upTo":
+      OPTIONS.variant = "single";
+      switchSingleAll.value = "single";
+      break;
+  };
+};
+
 
 /**
  * Only accepts numbers > 0
@@ -125,13 +145,13 @@ if(typeof(Worker) !== undefined) {
 function inputValid(newData) {
   // Input is acutally a number
   if(typeof(newData) !== "number" || isNaN(newData)) {
-    cueInvalidForm(inputField);
+    UXCueInvalidForm(inputField);
     return false;
   };
   
   // Input is positive and non zero
   if(newData <= 0) {
-    cueInvalidForm(inputField);
+    UXCueInvalidForm(inputField);
     return false;
   };
 
@@ -139,17 +159,19 @@ function inputValid(newData) {
 };
 
 
-// UX feedback cue for invalid input, higlights offending box
-/** this solution works poorly
- * problem#1 if active it turns it off
- * problem#2 it does not provide cue on keypress "enter"
- * Theory:
- *  button click forces a browser page update
- *  keypress does not
- * rational:
- *  class is set correctly, but no change in renderer
+//  this solution works poorly
+// problem#1 if active it turns it off
+// problem#2 it does not provide cue on keypress "enter"
+// Theory:
+//  button click forces a browser page update
+//  keypress does not
+// rational:
+//  class is set correctly, but no change in renderer
+
+/**
+ * Highlights offending box
  */
-async function cueInvalidForm(node) {
+async function UXCueInvalidForm(node) {
   if(node.classList.toggle("invalid-form")) {
     setTimeout(() => {node.classList.remove("invalid-form")}, 1000);
   };

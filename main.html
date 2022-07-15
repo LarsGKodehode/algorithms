@@ -5,19 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Module Algorithm</title>
 
+  <!-- Styles -->
   <link rel="stylesheet" href="main.css">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Encode+Sans&display=swap">
   
+  <!-- Script -->
   <script defer src="main.js" type="module"></script>
 
+  <!-- Favicon -->
   <link rel="icon" href="./icon.svg ">
+  
 </head>
-
 <body>
   <!-- Input -->
-  <form id="input-container">
-    <input type="text" id="input-field" name="collatz number" inputmode="numeric" pattern[0-9] placeholder="0" autofocus autocomplete="off">
-    <input type="submit" id="input-field-submit" value="SUBMIT" formmethod="dialog">
-  </form>
+  <div id="gui-wrapper">
+    <form id="input-container">
+      <input type="text" id="input-field" name="collatz number" inputmode="numeric" pattern[0-9] placeholder="0" autofocus autocomplete="off">
+      <input type="submit" id="input-field-submit" value="SUBMIT" formmethod="dialog">
+    </form>
+
+    <div id="button-options">
+      <input id="switch-single-all" class="gui-buttons" type="button" value="single">
+    </div>
+  </div>
   
   <!-- Display output here -->
   <ul id="output-container"></ul>

@@ -105,7 +105,11 @@ const publisher = (OPTIONS = false) => {
     define,
     /**
      * Add another number to "gallery"
-     * @param {object} newNumber {seed: {number}, steps: {number}, max: {number}}
+     * @param {object} newNumber {
+        end-number,
+        {longestRunning},
+        {highestScor}
+      };
      */
     appendNumber,
     /**

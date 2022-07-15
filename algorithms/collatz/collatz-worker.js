@@ -30,7 +30,7 @@ const collatz = () => {
     };
   };
 
-  async function upTo(number, OPTIONS = false) {
+  async function upTo(number) {
     // Create simple array to iterate through, this might benefit from changing to a JS generator expression
     let numbersToCheck = [];
     for(let i = 1; i <= number; i++) {
@@ -39,21 +39,8 @@ const collatz = () => {
     
     // Run Collatz on values in array
     const tempArray = await Promise.all(numbersToCheck.map( async (number) => {
-      return thisNumber(number, OPTIONS);
+      return thisNumber(number);
     }));
-
-    // If OPTIONS.sort, then sort
-    // const sort = OPTIONS.sort;
-    // if(sort) {
-    //   switch(sort) {
-    //     case "getLongestStoppingTime":
-    //       tempArray.sort((a, b) => {return a.steps - b.steps});
-    //       break
-    //     case "getHighScore":
-    //       tempArray.sort((a, b) => {return a.max - b.max});
-    //       break;
-    //   };
-    // };
 
     let longestRunning = {steps: 0};
     let highestScore = {max: 0};
@@ -106,8 +93,28 @@ onmessage = async (message) => {
   const { number, OPTIONS } = message.data;
   
   // Run algorithm
-  const newStats = await Collatz.upTo(number, OPTIONS);
+  let newStats;
+  const variant = OPTIONS.variant;
+  switch (variant) {
+    case "single":
+      const temp = await Collatz.thisNumber(number);
+      newStats = {
+        "end-number": NaN,
+        "lr-seed": temp.seed,
+        "lr-stopping-time": temp.steps,
+        "lr-highest-score": temp.max,
+        "hs-seed": NaN,
+        "hs-stopping-time": NaN,
+        "hs-highest-score": NaN,
+      };
+      break;
+    case "upTo":
+      newStats = await Collatz.upTo(number);
+      break;
+  };
 
-  // Return to main function
+  /**
+   * Return to main function
+   */
   postMessage(newStats);
 };

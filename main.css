@@ -9,10 +9,6 @@
 
 
 /* ===== TYPOGRAPHY ===== */
-/* Consider moving import to html>head, could also serve this from the same server
-importing main font inside css adds an additional hop before first render */
-@import url('https://fonts.googleapis.com/css2?family=Encode+Sans&family=Quantico&display=swap');
-
 * {
   font-family: 'Encode Sans', sans-serif;
 }
@@ -36,12 +32,24 @@ body {
   /* Background */
   background: #093028;
   background-image: url("./image-background.jpg");
+
   /* Placement */
   background-attachment: fixed;
 }
 
 /* ===== INPUT ===== */
-/* Input wrapper */
+/* GUI wrappper */
+#gui-wrapper {
+  /* Alignment in grid */
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+
+  /* Content display */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* Input container */
 #input-container {
   /* Alignment in grid */
   grid-column: 2 / 3;
@@ -100,6 +108,35 @@ body {
   }
 }
 #input-field-submit:active {
+  outline: 4px ridge rgba(167, 152, 174, 0.6);
+  border-radius: 2rem;
+
+  box-shadow: inset 2px 2px 2px #00070c83;
+
+  transform: translateY(1px);
+}
+
+/* GUI Buttons */
+#button-options {
+  /* Placement in grid */
+  grid-column: 3 / 4;
+
+  /* Shape */
+  box-sizing: border-box;
+  margin: 1em;
+}
+
+.gui-buttons {
+  /* Shape */
+  width: 4em;
+  height: 4em;
+  border-radius: 50%;
+
+  /* color */
+  background-color: #AFCCCC;
+}
+
+.gui-buttons:active {
   outline: 4px ridge rgba(167, 152, 174, 0.6);
   border-radius: 2rem;
 
