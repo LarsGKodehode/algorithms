@@ -1,9 +1,21 @@
-// Format of define object
-// parts
+/**
+ * HTML code formatted as string literal
+ */
 type Definition = string;
+
+/**
+ * Handles to classnames in Definition
+ */
 type Handles = Array<string>;
-type Target = HTMLElement; // Is this the correct HTML element?
-// Full object
+
+/**
+ * The DOM parent element you want as parent element
+ */
+type Target = HTMLElement;
+
+/**
+ * Object needed for defining output element
+ */
 interface PublisherDefineString {
   // HTML element as string
   definition: Definition,
@@ -129,12 +141,13 @@ const Publisher = () => {
    */
   return {
     /**
-     * Setup the internal "gallery"
+     * Required for setup of output format
      * @param {object} defineInfo object
      */
     define,
     /**
-     * Add another number statistics to component
+     * Returns node as defined earlier.
+     * @returns {HTMLElement}
      */
     appendNumber,
   };
