@@ -1,30 +1,28 @@
 // Format of define object
-type Defention = string;
+// parts
+type Definition = string;
 type Handles = Array<string>;
 type Target = HTMLElement; // Is this the correct HTML element?
-
+// Full object
 interface PublisherDefineString {
   // HTML element as string
-  definition: Defention,
+  definition: Definition,
   // Classname handles into HTML element
   handles: Handles,
   // DOM node to append result to
   target: Target,
 };
 
+// Internal types
 // Structure of handles we have implemented
 interface VirtualNodeHandles {
-  [key: string]: HTMLElement,
+  [key: string]: Element,
 };
 
 
-const Publisher = () => {
+const publisher = () => {
   // ===== PUBLIC =====
 
-  /**
-   * Setup the internal "gallery"
-   * @param {object} defineInfo object
-   */
   function define(defineInfo: PublisherDefineString): void {
     // Check if define info correct
     if(!defineInfoCorrect(defineInfo)) {
@@ -34,14 +32,11 @@ const Publisher = () => {
     };
 
     // All good. Create internal variables
-    const nodeMother = parsStringToNode(defineInfo.definition);
-    const motherlyHandles = attachHandles(nodeMother, defineInfo.handles);
-    const DOMTarget = defineInfo.target;
+    nodeMother = parsStringToNode(defineInfo.definition);
+    motherlyHandles = attachHandles(nodeMother, defineInfo.handles);
+    DOMTarget = defineInfo.target;
   };
 
-  /**
-   * Add another number statistics to component
-   */
   function appendNumber(newNumber: any): void {
     // Set all variables in new element
     for(const entry in motherlyHandles) {
@@ -70,21 +65,22 @@ const Publisher = () => {
   function defineInfoCorrect(defineInfo: PublisherDefineString): boolean {
     // Required keys
     const requiredKeys = [
-      'definition',
-      'handles',
-      'target',
+      "definition",
+      "handles",
+      "target",
     ];
 
     // Store any keys that is missing
-    const flawed = requiredKeys.map((key) => {
+    let missingKeys: Array<string> = [];
+    for(const key of requiredKeys) {
       if(!(key in defineInfo)) {
-        return key;
+        missingKeys.push(key);
       };
-    });
+    };
 
     // Were there any missing keys?
-    if(flawed) {
-      for(const entry of flawed) {
+    if(missingKeys.length > 0) {
+      for(const entry of missingKeys) {
         console.warn(`Publisher defineInfo flawed. Missing key:\t${entry}`);
       };
       return false;
@@ -97,7 +93,7 @@ const Publisher = () => {
   /**
    * Parses string into DOM Node
    */
-  function parsStringToNode(definition: Defention): HTMLElement {
+  function parsStringToNode(definition: Definition): HTMLElement {
     const nodeParsed = new DOMParser().parseFromString(definition, "text/html").body.firstChild;
 
     /**
@@ -105,7 +101,7 @@ const Publisher = () => {
      * @link https://stackoverflow.com/a/43525969
      */
     if (!(nodeParsed instanceof HTMLElement)) {
-      const element = nodeParsed && nodeParsed.constructor && nodeParsed.constructor.name || nodeParsed;
+      const element = nodeParsed && nodeParsed.constructor || nodeParsed;
       throw new Error(`Expected element to be an HTMLElement, was ${element}`);
     };
 
@@ -116,21 +112,32 @@ const Publisher = () => {
    * Returns refrences into DOM node
    */
   function attachHandles(element: HTMLElement, handleNames: Handles): VirtualNodeHandles {
-    let handles = {};
+    let handles: VirtualNodeHandles = {};
     // Query for all the .classNames
     for(const entry of handleNames) {
-      handles[entry] = element.querySelector("." + entry);
+      const node = element.querySelector("." + entry);
+      if(node) {
+        handles[entry] = node;
+      };
     };
-    
 
     return handles;
   };
 
-
+  /**
+   * Returned handles
+   */
   return {
+    /**
+     * Setup the internal "gallery"
+     * @param {object} defineInfo object
+     */
     define,
+    /**
+     * Add another number statistics to component
+     */
     appendNumber,
   };
 };
 
-export default Publisher;
+export const Publisher = publisher();
