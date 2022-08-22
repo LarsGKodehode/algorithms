@@ -1,7 +1,7 @@
 // Non threaded variant of algorithm
 import { Collatz } from "./algorithms/collatz/collatz.js";
 // Helper to publish formated content to DOM
-import { Publisher } from "./helpers/publisher.js";
+import Publisher from "./helpers/Publisher";
 
 
 
