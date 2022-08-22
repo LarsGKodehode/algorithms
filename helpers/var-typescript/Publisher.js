@@ -1,6 +1,6 @@
 ;
 ;
-const publisher = () => {
+const Publisher = () => {
     // ===== PUBLIC =====
     function define(defineInfo) {
         // Check if define info correct
@@ -115,4 +115,4 @@ const publisher = () => {
         appendNumber,
     };
 };
-export const Publisher = publisher();
+export default Publisher;

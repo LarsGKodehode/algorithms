@@ -1,8 +1,7 @@
 // Non threaded variant of algorithm
 import { Collatz } from "./algorithms/collatz/collatz.js";
 // Helper to publish formated content to DOM
-import { Publisher } from "./helpers/var-typescript/Publisher.js";
-
+import Publisher from "./helpers/var-typescript/Publisher.js";
 
 
 // ========== CONFIGS ==========
@@ -29,8 +28,11 @@ const inputField = document.getElementById("input-field"); // Input field
 const submit = document.getElementById("input-container"); // Submit form
 const switchSingleAll = document.getElementById("switch-single-all"); // GUI switch Collatz 1 | Collatz 1-..-N
 
+// Create new Publisher
+const PublisherCollatz = Publisher();
+
 // Define publishing format
-Publisher.define({
+PublisherCollatz.define({
   definition: `
   <li class="output-element glass" style="display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);gap:10px">
     <h3 style="grid-column:1/-1;grid-row:1/1">Numbers up to: <span class="end-number"></span></h3>
@@ -85,7 +87,7 @@ async function handleInput() {
   const newCollatzNumber = await Collatz.upTo(newData, OPTIONS);
 
   // Publish work
-  Publisher.appendNumber(newCollatzNumber);
+  PublisherCollatz.appendNumber(newCollatzNumber);
 };
 
 // If Web Worker supported, use threaded variant of function instead
@@ -115,7 +117,7 @@ if(typeof(Worker) !== undefined) {
     // Handle returned value
     worker.onmessage = (message) => {
       // Publish work
-      Publisher.appendNumber(message.data);
+      PublisherCollatz.appendNumber(message.data);
     };
   };
 };

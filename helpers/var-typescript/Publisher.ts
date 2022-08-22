@@ -20,7 +20,7 @@ interface VirtualNodeHandles {
 };
 
 
-const publisher = () => {
+const Publisher = () => {
   // ===== PUBLIC =====
 
   function define(defineInfo: PublisherDefineString): void {
@@ -140,4 +140,4 @@ const publisher = () => {
   };
 };
 
-export const Publisher = publisher();
+export default Publisher;
