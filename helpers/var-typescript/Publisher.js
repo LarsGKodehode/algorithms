@@ -105,12 +105,13 @@ const Publisher = () => {
      */
     return {
         /**
-         * Setup the internal "gallery"
+         * Required for setup of output format
          * @param {object} defineInfo object
          */
         define,
         /**
-         * Add another number statistics to component
+         * Returns node as defined earlier.
+         * @returns {HTMLElement}
          */
         appendNumber,
     };
